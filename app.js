@@ -3,6 +3,8 @@ const mongoose = require("mongoose")
 const cors = require("cors")
 const bcrypt = require("bcrypt")
 const loginModel = require("./models/admin")
+const { JsonWebTokenError } = require("jsonwebtoken")
+const peopleModel = require("./models/people")
 const app =express()
 app.use(cors())
 app.use(express.json())
@@ -55,6 +57,13 @@ app.post("/adminSignin",(req,res)=>{
             }
         }
     ).catch()
+})
+
+app.post("/add",(req,res)=>{
+    let input=req.body
+    let user = new peopleModel(input)
+    user.save()
+    res.json({"status":"success"})
 })
 
 app.listen(3030,()=>{
