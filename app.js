@@ -66,6 +66,17 @@ app.post("/add",(req,res)=>{
     res.json({"status":"success"})
 })
 
+app.get("/view",(req,res)=>{
+    peopleModel.find().then(
+        (data)=>{
+            res.json(data)
+        }
+    ).catch((error)=>{
+        res.json(error)
+
+    })
+})
+
 app.listen(3030,()=>{
     console.log("server started")
 })
